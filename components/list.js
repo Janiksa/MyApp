@@ -3,39 +3,19 @@ import {FlatList, Image, StatusBar, StyleSheet, Text, TouchableOpacity, View} fr
 import {useState, useEffect} from "react";
 
 import ListItem from "./listItem";
-
-const url = 'https://raw.githubusercontent.com/mattpe/wbma/master/docs/assets/test.json';
+import {api} from "../utils/variables";
+import {useMedia} from "../hooks/ApiHooks"
 
 
 const List = () => {
-  const [mediaArray, setMediaArray] = useState([]);
-  const loadMedia = async () => {
 
-    try {
-      const response = await fetch(url);
-      if (!response.ok) {
-        throw Error(response.statusText);
-      }
-      const json = await response.json();
-      setMediaArray(json);
-      console.log(json);
-
-    } catch (e) {
-      console.error("Api fetch failed", error);
-    }
-
-  };
-  //Called only once when array brackets are empty
-  useEffect(() => {
-    loadMedia();
-  }, []);
-
+  const {mediaArray} = useMedia();
 
   return (
     <>
       <FlatList
         data={mediaArray}
-        keyExtractor = { (item) => item.title }
+        keyExtractor={(item) => item.file_id.toString()}
         renderItem={({item}) => <ListItem singleMedia={item}/>}
       />
     </>
