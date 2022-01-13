@@ -13,12 +13,12 @@ const ListItem = ({ singleMedia }) => {
   return (
     <TouchableOpacity style={[styles.row]}>
       <Image
-        style={{width: 120, height: 250, margin: 10,}}
+        style={{width: 150, height: 100, margin: 10, borderRadius: 5, borderBottomLeftRadius: 50}}
         source={{uri: uploads + singleMedia.thumbnails?.w160}}
       />
       <View>
-        <Text style={{fontWeight: "bold", padding: 5, margin: 10}}>{singleMedia.title}</Text>
-        <Text style={{width: 210}}>{singleMedia.description}</Text>
+        <Text style={ [styles.font] }>{singleMedia.title}</Text>
+        <Text style={{width: 150, padding: 10, color: "grey"}}>{singleMedia.description}</Text>
       </View>
     </TouchableOpacity>
   );
@@ -32,8 +32,14 @@ const styles = StyleSheet.create({
   row: {
     flex: 1,
     flexDirection: "row",
-    margin: 2,
-    backgroundColor: "lightgrey",
+    margin: 5,
+    backgroundColor: "#36454F",
   },
+  font:{
+    fontFamily: "notoserif",
+    color: "white",
+    fontWeight: "bold",
+    margin: 10
+  }
 });
 export default ListItem;
