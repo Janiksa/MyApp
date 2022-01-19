@@ -2,7 +2,6 @@ import React from 'react';
 import {StyleSheet, SafeAreaView, Text} from 'react-native';
 import PropTypes from "prop-types"
 import {Image} from "react-native";
-import View from "react-native";
 import {uploads} from "../utils/variables";
 
 
