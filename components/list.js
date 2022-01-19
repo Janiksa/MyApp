@@ -1,8 +1,6 @@
 import React from 'react';
 import {FlatList} from "react-native";
-
 import ListItem from "./listItem";
-
 import {useMedia} from "../hooks/ApiHooks"
 import Home from "../views/Home";
 import PropTypes from "prop-types"
@@ -22,7 +20,7 @@ const List = ({navigation}) => {
   );
 };
 
-Home.propTypes = {
+List.propTypes = {
   navigation: PropTypes.object,
 }
 
