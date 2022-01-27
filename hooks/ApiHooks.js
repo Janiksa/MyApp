@@ -87,7 +87,11 @@ const useUser = () => {
     return await doFetch(api + 'users', options);
   };
 
-  return {getUserByToken, postUser};
+  const checkUsername = async (username) => {
+    return await doFetch(api + 'users/username/' + username)
+  }
+
+  return {getUserByToken, postUser, checkUsername};
 };
 
 const useTag = () => {
