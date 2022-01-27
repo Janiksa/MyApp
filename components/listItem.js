@@ -1,44 +1,36 @@
 import React from 'react';
-import {Image, StyleSheet, Text, TouchableOpacity, View} from "react-native";
 import PropTypes from 'prop-types';
-import {uploads} from "../utils/variables";
-
+import {uploads} from '../utils/variables';
+import {Avatar, ListItem as RNEListItem} from 'react-native-elements';
 
 const ListItem = ({navigation, singleMedia}) => {
-
   return (
-    <TouchableOpacity onPress={() => {
-      navigation.navigate('Single', {file: singleMedia})}} style={[styles.row]}>
-      <Image
-        style={{width: 150, height: 100, margin: 10, borderRadius: 5, borderBottomLeftRadius: 50}}
+    <RNEListItem
+      bottomDivider
+      onPress={() => {
+        navigation.navigate('Single', {file: singleMedia});
+      }}
+    >
+      <Avatar
+        size="large"
         source={{uri: uploads + singleMedia.thumbnails?.w160}}
       />
-      <View>
-        <Text style={[styles.font]}>{singleMedia.title}</Text>
-        <Text style={{width: 150, padding: 10, color: "grey"}}>{singleMedia.description}</Text>
-      </View>
-
-    </TouchableOpacity>
+      <RNEListItem.Content>
+        <RNEListItem.Title numberOfLines={1} h4>
+          {singleMedia.title}
+        </RNEListItem.Title>
+        <RNEListItem.Subtitle numberOfLines={1}>
+          {singleMedia.description}
+        </RNEListItem.Subtitle>
+      </RNEListItem.Content>
+      <RNEListItem.Chevron/>
+    </RNEListItem>
   );
-}
+};
 
 ListItem.propTypes = {
   singleMedia: PropTypes.object.isRequired,
-  navigation: PropTypes.object
+  navigation: PropTypes.object.isRequired,
 };
 
-const styles = StyleSheet.create({
-  row: {
-    flex: 1,
-    flexDirection: "row",
-    margin: 5,
-    backgroundColor: "#36454F",
-  },
-  font: {
-    fontFamily: "notoserif",
-    color: "white",
-    fontWeight: "bold",
-    margin: 10
-  }
-});
 export default ListItem;
