@@ -62,16 +62,19 @@ const Login = ({navigation}) => {
               buttons={['Login', 'Register']}
             />
           </Card>
-          <Card>
-            <Card.Title h4>Login</Card.Title>
-            <Card.Divider />
-            <LoginForm />
-          </Card>
-          <Card>
-            <Card.Title h4>Register</Card.Title>
-            <Card.Divider />
-            <RegisterForm />
-          </Card>
+          {formToggle ? (
+            <Card>
+              <Card.Title h4>Login</Card.Title>
+              <Card.Divider />
+              <LoginForm />
+            </Card>
+          ) : (
+            <Card>
+              <Card.Title h4>Register</Card.Title>
+              <Card.Divider />
+              <RegisterForm setFormToggle={setFormToggle} />
+            </Card>
+          )}
         </View>
       </KeyboardAvoidingView>
     </TouchableOpacity>

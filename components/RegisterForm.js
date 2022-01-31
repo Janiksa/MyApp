@@ -15,6 +15,7 @@ const RegisterForm = () => {
     defaultValues: {
       username: '',
       password: '',
+      confirmPassword: '',
       email: '',
       full_name: '',
     },
@@ -36,11 +37,12 @@ const RegisterForm = () => {
       <Controller
         control={control}
         rules={{
-          required: true,
-          validate: async(value) => {
-            try{
+          required: {value: true, message: "This is required!"},
+          minLength: {value: 3, message: "Username must be at least 3 characters long"},
+          validate: async (value) => {
+            try {
               const available = await checkUsername(value);
-              if(available){
+              if (available) {
                 return true;
               } else {
                 return "username is already taken!"
@@ -48,7 +50,7 @@ const RegisterForm = () => {
             } catch (e) {
               new Error("error");
             }
-        },
+          },
         }}
         render={({field: {onChange, onBlur, value}}) => (
           <Input
@@ -68,6 +70,7 @@ const RegisterForm = () => {
         control={control}
         rules={{
           required: true,
+          minLength: {value: 5, message: "Password must be at least 5 characters long"},
         }}
         render={({field: {onChange, onBlur, value}}) => (
           <Input
@@ -86,7 +89,38 @@ const RegisterForm = () => {
       <Controller
         control={control}
         rules={{
+          required: {value: true, message: 'This is required.'},
+          validate: (value) => {
+            const {password} = getValues();
+            if (value === password) {
+              return true;
+            } else {
+              return 'Passwords do not match.';
+            }
+          },
+        }}
+        render={({field: {onChange, onBlur, value}}) => (
+          <Input
+            onBlur={onBlur}
+            onChangeText={onChange}
+            value={value}
+            autoCapitalize="none"
+            secureTextEntry={true}
+            placeholder="Confirm Password"
+            errorMessage={
+              errors.confirmPassword && errors.confirmPassword.message
+            }
+          />
+        )}
+        name="confirmPassword"
+      />
+
+      <Controller
+        control={control}
+        rules={{
           required: true,
+          pattern: {value: /^\S+@\S+\.\S+$/, message:"Not email"}
+
         }}
         render={({field: {onChange, onBlur, value}}) => (
           <Input
@@ -103,6 +137,10 @@ const RegisterForm = () => {
 
       <Controller
         control={control}
+        rules={{
+          required: true,
+          minLength: {value: 3, message: "Full name has to be at least 3 characters long"}
+        }}
         render={({field: {onChange, onBlur, value}}) => (
           <Input
             onBlur={onBlur}
@@ -115,7 +153,7 @@ const RegisterForm = () => {
         name="full_name"
       />
 
-      <Button title="Submit" onPress={handleSubmit(onSubmit)} />
+      <Button title="Submit" onPress={handleSubmit(onSubmit)}/>
     </View>
   );
 };
