@@ -8,6 +8,7 @@ import Single from '../views/Single';
 import Login from '../views/Login';
 import {MainContext} from '../contexts/MainContext';
 import {Icon} from 'react-native-elements';
+import Upload from '../views/Upload';
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -29,12 +30,13 @@ const TabScreen = () => {
               iconName = 'account-box';
               break;
           }
-          return <Icon name={iconName} size={size} color={color}/>;
+          return <Icon name={iconName} size={size} color={color} />;
         },
       })}
     >
-      <Tab.Screen name="Home" component={Home}/>
-      <Tab.Screen name="Profile" component={Profile}/>
+      <Tab.Screen name="Home" component={Home}></Tab.Screen>
+      <Tab.Screen name="Upload" component={Upload}></Tab.Screen>
+      <Tab.Screen name="Profile" component={Profile}></Tab.Screen>
     </Tab.Navigator>
   );
 };
@@ -50,15 +52,19 @@ const StackScreen = () => {
             name="Main"
             component={TabScreen}
             options={{headerShown: false}}
-          />
-          <Stack.Screen name="Single" component={Single}/>
+          ></Stack.Screen>
+          <Stack.Screen name="Single" component={Single}></Stack.Screen>
+          <Stack.Screen
+            name="Upload"
+            component={Upload}
+          ></Stack.Screen>
         </>
       ) : (
         <Stack.Screen
           name="Login"
           component={Login}
           options={{headerShown: false}}
-        />
+        ></Stack.Screen>
       )}
     </Stack.Navigator>
   );
@@ -67,7 +73,7 @@ const StackScreen = () => {
 const Navigator = () => {
   return (
     <NavigationContainer>
-      <StackScreen/>
+      <StackScreen />
     </NavigationContainer>
   );
 };
